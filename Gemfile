@@ -33,6 +33,9 @@ gem 'carrierwave'
 # Using Amazon S3 
 gem 'fog'
 
+# To hide amazon keys
+gem 'figaro'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
