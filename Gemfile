@@ -42,6 +42,9 @@ gem 'mini_magick'
 # Users
 gem 'devise'
 
+# For Search, from Instacart
+gem 'searchkick'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
