@@ -1,5 +1,7 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  before_action :check_user, except: [:index, :show]
 
   # GET /restaurants
   # GET /restaurants.json
@@ -34,9 +36,11 @@ class RestaurantsController < ApplicationController
 
     respond_to do |format|
       if @restaurant.save
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
+        fail
+        format.html { redirect_to restaurant_path(@restaurant), notice: 'Restaurant was successfully created.' }
         format.json { render action: 'show', status: :created, location: @restaurant }
       else
+        fail
         format.html { render action: 'new' }
         format.json { render json: @restaurant.errors, status: :unprocessable_entity }
       end
@@ -68,6 +72,12 @@ class RestaurantsController < ApplicationController
   end
 
   private
+    def check_user
+      unless current_user.admin?
+        redirect_to root_url, alert: 'Sorry, only admins can do that!'
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_restaurant
       @restaurant = Restaurant.find(params[:id])

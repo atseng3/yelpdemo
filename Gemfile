@@ -60,4 +60,9 @@ gem 'pg', group: :production
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+group :development do
+	gem 'debugger'
+	gem 'better_errors'
+	gem 'binding_of_caller'
+end
+
